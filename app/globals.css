@@ -287,6 +287,10 @@ body {
    -webkit-text-fill-color: transparent;
 }
 
+@utility bg-settings {
+   @apply bg-cover bg-center bg-no-repeat;
+}
+
 @utility flex-center {
    @apply flex items-center justify-center;
 }
@@ -564,10 +568,10 @@ code {
   ---break---
 */
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+   * {
+      @apply border-border outline-ring/50;
    }
-  body {
-    @apply bg-background text-foreground;
+   body {
+      @apply bg-background text-foreground;
    }
 }
