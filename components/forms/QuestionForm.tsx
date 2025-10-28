@@ -13,7 +13,6 @@ import { useRef } from "react";
 import dynamic from "next/dynamic";
 import z from "zod";
 import TagCard from "../cards/TagCard";
-import { log } from "console";
 
 const Editor = dynamic(() => import("@/components/editor"), {
    ssr: false,
