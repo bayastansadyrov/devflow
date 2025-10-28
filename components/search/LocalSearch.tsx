@@ -67,8 +67,6 @@
 
 // export default LocalSearch;
 
-// Бесконечный цикл
-
 "use client";
 
 import Image from "next/image";
@@ -90,45 +88,34 @@ const LocalSearch = ({ route, imgSrc, placeholder, otherClasses }: Props) => {
    const pathname = usePathname();
    const router = useRouter();
    const searchParams = useSearchParams();
+   const query = searchParams.get("query") || "";
 
-   const [searchQuery, setSearchQuery] = useState("");
+   const [searchQuery, setSearchQuery] = useState(query);
 
-   // Синхронизация с URL только при монтировании
-   useEffect(() => {
-      const query = searchParams.get("query") || "";
-      setSearchQuery(query);
-   }, []); // Пустой массив зависимостей!
-
-   // Обновление URL с debounce
    useEffect(() => {
       const delayDebounceFn = setTimeout(() => {
-         const currentQuery = searchParams.get("query") || "";
+         if (searchQuery) {
+            const newUrl = formUrlQuery({
+               params: searchParams.toString(),
+               key: "query",
+               value: searchQuery,
+            });
 
-         // Обновляем только если значение изменилось
-         if (searchQuery !== currentQuery) {
-            if (searchQuery) {
-               const newUrl = formUrlQuery({
+            router.push(newUrl, { scroll: false });
+         } else {
+            if (pathname === route) {
+               const newUrl = removeKeysFromUrlQuery({
                   params: searchParams.toString(),
-                  key: "query",
-                  value: searchQuery,
+                  keysToRemove: ["query"],
                });
 
                router.push(newUrl, { scroll: false });
-            } else {
-               if (pathname === route) {
-                  const newUrl = removeKeysFromUrlQuery({
-                     params: searchParams.toString(),
-                     keysToRemove: ["query"],
-                  });
-
-                  router.push(newUrl, { scroll: false });
-               }
             }
          }
       }, 300);
 
       return () => clearTimeout(delayDebounceFn);
-   }, [searchQuery]); // Только searchQuery в зависимостях!
+   }, [searchQuery, pathname, route]); // Убрал searchParams и router
 
    return (
       <div
