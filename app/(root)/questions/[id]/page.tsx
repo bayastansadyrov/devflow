@@ -1,5 +1,6 @@
 import TagCard from "@/components/cards/TagCard";
 import { Preview } from "@/components/editor/Preview";
+import AnswerForm from "@/components/forms/AnswerForm";
 import Metric from "@/components/Metric";
 import UserAvatar from "@/components/UserAvatar";
 import ROUTES from "@/constants/routes";
@@ -45,7 +46,6 @@ const QuestionDetails = async ({ params }: RouteParams) => {
 
             <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full">{title}</h2>
          </div>
-
          <div className="mt-5 mb-8 flex flex-wrap gap-4">
             <Metric
                imgUrl="/icons/clock.svg"
@@ -69,14 +69,15 @@ const QuestionDetails = async ({ params }: RouteParams) => {
                textStyles="small-regular text-dark400_light700"
             />
          </div>
-
          <Preview content={content} />
-
          <div className="mt-8 flex flex-wrap gap-2">
             {tags.map((tag: Tag) => (
                <TagCard key={tag._id} _id={tag._id as string} name={tag.name} compact />
             ))}
          </div>
+         <section className="my-5">
+            <AnswerForm questionId={question._id} />
+         </section>{" "}
       </>
    );
 };
