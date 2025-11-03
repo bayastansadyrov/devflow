@@ -1,11 +1,9 @@
 "use server";
 
 import mongoose, { FilterQuery } from "mongoose";
-
 import Question, { IQuestionDoc } from "@/database/question.model";
 import TagQuestion from "@/database/tag-question.model";
 import Tag, { ITagDoc } from "@/database/tag.model";
-
 import action from "../handlers/action";
 import handleError from "../handlers/error";
 import {
@@ -15,8 +13,6 @@ import {
    IncrementViewsSchema,
    PaginatedSearchParamsSchema,
 } from "../validations";
-import ROUTES from "@/constants/routes";
-import { revalidatePath } from "next/cache";
 
 export async function createQuestion(params: CreateQuestionParams): Promise<ActionResponse<Question>> {
    const validationResult = await action({
@@ -282,8 +278,6 @@ export async function incrementViews(params: IncrementViewsParams): Promise<Acti
       question.views += 1;
 
       await question.save();
-
-      revalidatePath(ROUTES.QUESTION(questionId));
 
       return {
          success: true,
