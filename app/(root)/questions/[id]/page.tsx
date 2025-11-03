@@ -7,19 +7,20 @@ import { getQuestion } from "@/lib/actions/question.action";
 import { formatNumber, getTimeStamp } from "@/lib/utils";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import View from "./view";
 
 const QuestionDetails = async ({ params }: RouteParams) => {
    const { id } = await params;
-   const { success, data: question } = await getQuestion({
-      questionId: id,
-   });
+   const { success, data: question } = await getQuestion({ questionId: id });
 
    if (!success || !question) return redirect("/404");
 
-   const { author, createdAt, answers, views, tags, content } = question;
+   const { author, createdAt, answers, views, tags, content, title } = question;
 
    return (
       <>
+         <View questionId={id} />
+
          <div className="flex-start w-full flex-col">
             <div className="flex w-full flex-col-reverse justify-between">
                <div className="flex items-center justify-start gap-1">
@@ -39,7 +40,7 @@ const QuestionDetails = async ({ params }: RouteParams) => {
                </div>
             </div>
 
-            <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full">{question.title}</h2>
+            <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full">{title}</h2>
          </div>
 
          <div className="mt-5 mb-8 flex flex-wrap gap-4">
