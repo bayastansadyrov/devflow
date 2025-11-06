@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-
 import { Select, SelectItem, SelectTrigger, SelectValue, SelectContent, SelectGroup } from "@/components/ui/select";
 import { formUrlQuery } from "@/lib/url";
 import { cn } from "@/lib/utils";
@@ -20,7 +19,6 @@ interface Props {
 const CommonFilter = ({ filters, otherClasses = "", containerClasses = "" }: Props) => {
    const router = useRouter();
    const searchParams = useSearchParams();
-
    const paramsFilter = searchParams.get("filter");
 
    const handleUpdateParams = (value: string) => {

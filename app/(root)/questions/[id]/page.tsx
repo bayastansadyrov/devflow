@@ -7,18 +7,19 @@ import TagCard from "@/components/cards/TagCard";
 import { Preview } from "@/components/editor/Preview";
 import AnswerForm from "@/components/forms/AnswerForm";
 import Metric from "@/components/Metric";
+import SaveQuestion from "@/components/questions/SaveQuestion";
 import UserAvatar from "@/components/UserAvatar";
 import Votes from "@/components/votes/Votes";
 import ROUTES from "@/constants/routes";
 import { getAnswers } from "@/lib/actions/answer.action";
+import { hasSavedQuestion } from "@/lib/actions/collection.action";
 import { getQuestion, incrementViews } from "@/lib/actions/question.action";
 import { hasVoted } from "@/lib/actions/vote.action";
 import { formatNumber, getTimeStamp } from "@/lib/utils";
-import SaveQuestion from "@/components/questions/SaveQuestion";
-import { hasSavedQuestion } from "@/lib/actions/collection.action";
 
-const QuestionDetails = async ({ params }: RouteParams) => {
+const QuestionDetails = async ({ params, searchParams }: RouteParams) => {
    const { id } = await params;
+   const { page, pageSize, filter } = await searchParams;
    const { success, data: question } = await getQuestion({ questionId: id });
 
    after(async () => {
@@ -33,9 +34,9 @@ const QuestionDetails = async ({ params }: RouteParams) => {
       error: answersError,
    } = await getAnswers({
       questionId: id,
-      page: 1,
-      pageSize: 10,
-      filter: "latest",
+      page: Number(page) || 1,
+      pageSize: Number(pageSize) || 10,
+      filter,
    });
 
    const hasVotedPromise = hasVoted({
