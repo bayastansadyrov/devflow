@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Stats from "@/components/user/Stats";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import page from "../../page";
 import DataRenderer from "@/components/DataRenderer";
 import { EMPTY_ANSWERS, EMPTY_QUESTION, EMPTY_TAGS } from "@/constants/states";
 import QuestionCard from "@/components/cards/QuestionCard";
@@ -116,6 +117,7 @@ const Profile = async ({ params, searchParams }: RouteParams) => {
                SILVER: 0,
                BRONZE: 0,
             }}
+            reputationPoints={user.reputation || 0}
          />
 
          <section className="mt-10 flex gap-10">
