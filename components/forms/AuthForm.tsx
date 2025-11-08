@@ -1,28 +1,30 @@
 "use client";
 
-import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { DefaultValues, FieldValues, Path, SubmitHandler, useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
-import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import ROUTES from "@/constants/routes";
-import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface AuthFormProps<T extends FieldValues> {
-   schema: ZodType<T>;
-   defaultValues: T;
-   onSubmit: (data: T) => Promise<ActionResponse>;
    formType: "SIGN_IN" | "SIGN_UP";
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   schema: ZodType<T, any, any>;
+   defaultValues: T;
+   onSubmit: (data: T) => Promise<{ success: boolean }>;
 }
 
 const AuthForm = <T extends FieldValues>({ schema, defaultValues, formType, onSubmit }: AuthFormProps<T>) => {
    const router = useRouter();
 
-   const form = useForm<z.infer<typeof schema>>({
-      resolver: standardSchemaResolver(schema),
+   const form = useForm<T>({
+      resolver: zodResolver(schema),
       defaultValues: defaultValues as DefaultValues<T>,
    });
 
@@ -84,7 +86,7 @@ const AuthForm = <T extends FieldValues>({ schema, defaultValues, formType, onSu
 
             {formType === "SIGN_IN" ? (
                <p>
-                  Don't have an account?{" "}
+                  Don&apos;t have an account?{" "}
                   <Link href={ROUTES.SIGN_UP} className="paragraph-semibold primary-text-gradient">
                      Sign up
                   </Link>
