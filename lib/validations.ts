@@ -1,8 +1,10 @@
-// /lib/validations.ts
 import { z } from "zod";
 
 export const SignInSchema = z.object({
-   email: z.email({ message: "Please provide a valid email address." }).min(1, { message: "Email is required." }),
+   email: z
+      .string()
+      .min(1, { message: "Email is required." })
+      .email({ message: "Please provide a valid email address." }),
 
    password: z
       .string()
@@ -249,9 +251,4 @@ export const UpdateUserSchema = z.object({
    bio: z.string().min(3, {
       message: "Bio must be at least 3 characters.",
    }),
-});
-
-export const GlobalSearchSchema = z.object({
-   query: z.string(),
-   type: z.string().nullable().optional(),
 });
