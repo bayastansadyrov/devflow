@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { formUrlQuery, removeKeysFromUrlQuery } from "@/lib/url";
 import { cn } from "@/lib/utils";
