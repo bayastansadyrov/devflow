@@ -125,8 +125,3 @@ interface UpdateUserParams {
    image?: string;
    password?: string;
 }
-
-interface GlobalSearchParams {
-   query: string;
-   type: string | null;
-}
