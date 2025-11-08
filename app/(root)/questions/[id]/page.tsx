@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { after } from "next/server";
-import { Suspense } from "react";
+import React, { Suspense } from "react";
+
 import AllAnswers from "@/components/answers/AllAnswers";
 import TagCard from "@/components/cards/TagCard";
 import { Preview } from "@/components/editor/Preview";
@@ -58,6 +59,7 @@ const QuestionDetails = async ({ params, searchParams }: RouteParams) => {
                   <UserAvatar
                      id={author._id}
                      name={author.name}
+                     imageUrl={author.image}
                      className="size-[22px]"
                      fallbackClassName="text-[10px]"
                   />
