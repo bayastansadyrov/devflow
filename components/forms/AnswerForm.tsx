@@ -77,12 +77,7 @@ const AnswerForm = ({ questionId, questionTitle, questionContent }: Props) => {
             return toast.error(error?.message);
          }
 
-         // const formattedAnswer = data.replace(/<br>/g, " ").toString().trim();
-
-         const formattedAnswer = data
-            .replace(/<br>/g, " ")
-            .replace(/<\/?p>/g, "")
-            .trim();
+         const formattedAnswer = data.replace(/<br>/g, " ").toString().trim();
 
          if (editorRef.current) {
             editorRef.current.setMarkdown(formattedAnswer);
