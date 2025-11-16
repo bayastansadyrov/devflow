@@ -28,7 +28,7 @@
 
 DevOverflow is a full-stack, community-driven Q&A platform inspired by StackOverflow, enhanced with AI-powered answers, gamification, recommendations, and more.
 
-This project utilizes the latest features of **Next.js 14** (App Router), including **Server Actions**, advanced caching and revalidation strategies, and various rendering techniques (SSG, ISR, SSR).
+This project utilizes the latest features of **Next.js 16** (App Router), including **Server Actions**, advanced caching and revalidation strategies, and various rendering techniques (SSG, ISR, SSR).
 
 It uses **MongoDB** as its database, **NextAuth (Auth.js)** for authentication (supporting Email/Password, GitHub, and Google), and features a sleek UI built with **TailwindCSS** and **ShadCN UI**.
 
